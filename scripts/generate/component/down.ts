@@ -8,10 +8,7 @@ function to_kebab_case(str: string): string {
 const args = process.argv.slice(2);
 const [project_path, app_type, ...component_name_parts] = args;
 
-async function remove_single_component(
-  project_root: string,
-  component_name: string
-) {
+async function remove_single_component(project_root: string, component_name: string) {
   const kebab_case_name = to_kebab_case(component_name);
   const component_dir = join(project_root, 'src', 'components', kebab_case_name);
 

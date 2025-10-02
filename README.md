@@ -69,6 +69,16 @@ npm run ungenerate:spa:feature ./my-app users,products
 
 Pre-built, accessible UI components available as opt-in templates.
 
+```bash
+npm run generate:component <project_path> <component_name>
+npm run ungenerate:component <project_path> <component_name>
+```
+
+**Example:**
+```bash
+npm run generate:component ./my-app Button,Input,Card
+```
+
 [View component library roadmap →](./templates/ui-components/COMPONENTS.md)
 
 ## Project Structure

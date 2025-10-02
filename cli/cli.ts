@@ -56,34 +56,70 @@ const COMMAND_MAP: Record<string, ICommandConfig> = {
   generate: {
     script: '../scripts/generate/index.ts',
     buildArgs: (parts, userArgs) => {
-      const app_type = parts[1]!; // Safe after validation
-      const feature_type = parts[2]!; // Safe after validation
-      // userArgs = [project_path, ...names]
-      // Need: [project_path, app_type, feature_type, ...names]
-      const project_path = userArgs[0]!;
-      const names = userArgs.slice(1);
-      return [project_path, app_type, feature_type, ...names];
+      // Handle both: generate:component and generate:spa:feature
+      const isComponent = parts[1] === 'component';
+
+      if (isComponent) {
+        // generate:component ./app Button -> [./app, spa, component, Button]
+        const project_path = userArgs[0]!;
+        const names = userArgs.slice(1);
+        return [project_path, 'spa', 'component', ...names];
+      } else {
+        // generate:spa:feature ./app dashboard -> [./app, spa, feature, dashboard]
+        const app_type = parts[1]!;
+        const feature_type = parts[2]!;
+        const project_path = userArgs[0]!;
+        const names = userArgs.slice(1);
+        return [project_path, app_type, feature_type, ...names];
+      }
     },
-    validate: (parts) => ({
-      valid: !!parts[1] && !!parts[2],
-      error: 'Invalid command format. Expected: generate:<app_type>:<feature_type>',
-    }),
+    validate: (parts) => {
+      const isComponent = parts[1] === 'component';
+      if (isComponent) {
+        return {
+          valid: parts.length === 2,
+          error: 'Invalid command format. Expected: generate:component',
+        };
+      }
+      return {
+        valid: !!parts[1] && !!parts[2],
+        error: 'Invalid command format. Expected: generate:<app_type>:<feature_type>',
+      };
+    },
   },
   ungenerate: {
     script: '../scripts/generate/index.ts',
     buildArgs: (parts, userArgs) => {
-      const app_type = parts[1]!; // Safe after validation
-      const feature_type = parts[2]!; // Safe after validation
-      // userArgs = [project_path, ...names]
-      // Need: [project_path, app_type, feature_type, ...names, 'down']
-      const project_path = userArgs[0]!;
-      const names = userArgs.slice(1);
-      return [project_path, app_type, feature_type, ...names, 'down'];
+      // Handle both: ungenerate:component and ungenerate:spa:feature
+      const isComponent = parts[1] === 'component';
+
+      if (isComponent) {
+        // ungenerate:component ./app Button -> [./app, spa, component, Button, down]
+        const project_path = userArgs[0]!;
+        const names = userArgs.slice(1);
+        return [project_path, 'spa', 'component', ...names, 'down'];
+      } else {
+        // ungenerate:spa:feature ./app dashboard -> [./app, spa, feature, dashboard, down]
+        const app_type = parts[1]!;
+        const feature_type = parts[2]!;
+        const project_path = userArgs[0]!;
+        const names = userArgs.slice(1);
+        return [project_path, app_type, feature_type, ...names, 'down'];
+      }
     },
-    validate: (parts) => ({
-      valid: !!parts[1] && !!parts[2],
-      error: 'Invalid command format. Expected: ungenerate:<app_type>:<feature_type>',
-    }),
+    validate: (parts) => {
+      const isComponent = parts[1] === 'component';
+      if (isComponent) {
+        return {
+          valid: parts.length === 2,
+          error: 'Invalid command format. Expected: ungenerate:component',
+        };
+      }
+      return {
+        valid: !!parts[1] && !!parts[2],
+        error: 'Invalid command format. Expected: ungenerate:<app_type>:<feature_type>',
+      };
+    },
   },
 };
 

@@ -42,7 +42,11 @@ if (!feature_name.length) {
 }
 
 const script_name = is_down ? 'down.ts' : 'up.ts';
-const generate_script = join(__dirname, app_type, feature_type, script_name);
+
+// Component is app-agnostic, not under app_type folder
+const generate_script = feature_type === 'component'
+  ? join(__dirname, feature_type, script_name)
+  : join(__dirname, app_type, feature_type, script_name);
 
 const action = is_down ? 'Removing' : 'Generating';
 console.info(`${action} ${feature_type} in ${app_type} project...\n`);

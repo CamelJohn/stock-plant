@@ -1,4 +1,4 @@
-# Generate SPA Component
+# Generate Component
 
 Generates pre-built UI components from the component library.
 
@@ -38,13 +38,13 @@ src/components/button/
 
 ```bash
 # Generate single component
-npm run generate:spa:component ./my-app Button
+npm run generate:component ./my-app Button
 
 # Generate multiple components (bulk)
-npm run generate:spa:component ./my-app Button,Input,Card
+npm run generate:component ./my-app Button,Input,Card
 
 # Case insensitive
-npm run generate:spa:component ./my-app button,CARD,Modal
+npm run generate:component ./my-app button,CARD,Modal
 ```
 
 ## Component Usage
@@ -67,17 +67,18 @@ function MyPage() {
 
 ```bash
 # Remove single component
-npm run ungenerate:spa:component ./my-app Button
+npm run ungenerate:component ./my-app Button
 
 # Remove multiple components
-npm run ungenerate:spa:component ./my-app Button,Input,Card
+npm run ungenerate:component ./my-app Button,Input,Card
 ```
 
 ## Implementation
 
-- Entry point: `scripts/generate/spa/component/up.ts`
+- Entry point: `scripts/generate/component/up.ts`
 - Templates: `templates/ui-components/{category}/{component}/`
-- Component removal: `scripts/generate/spa/component/down.ts`
+- Component removal: `scripts/generate/component/down.ts`
+- Routing: Component is app-agnostic (not under spa/)
 
 ## Notes
 

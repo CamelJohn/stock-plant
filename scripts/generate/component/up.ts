@@ -1,6 +1,6 @@
 import { join } from 'node:path';
 import { mkdir, access } from 'node:fs/promises';
-import { generate_template } from '../../../../generators/generate-template.js';
+import { generate_template } from '../../../generators/generate-template.js';
 
 function to_kebab_case(str: string): string {
   return str.replace(/\s+/g, '-').replace(/_/g, '-').toLowerCase();
@@ -76,9 +76,15 @@ async function generate_single_component(
 
   // Generate component files
   const files = [
-    { template: `${template_base}/{{KEBAB_CASE_NAME}}.types.ts`, output: `${kebab_case_name}.types.ts` },
+    {
+      template: `${template_base}/{{KEBAB_CASE_NAME}}.types.ts`,
+      output: `${kebab_case_name}.types.ts`,
+    },
     { template: `${template_base}/{{KEBAB_CASE_NAME}}.tsx`, output: `${kebab_case_name}.tsx` },
-    { template: `${template_base}/{{KEBAB_CASE_NAME}}.module.css`, output: `${kebab_case_name}.module.css` },
+    {
+      template: `${template_base}/{{KEBAB_CASE_NAME}}.module.css`,
+      output: `${kebab_case_name}.module.css`,
+    },
     { template: `${template_base}/index.ts`, output: 'index.ts' },
   ];
 
