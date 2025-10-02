@@ -418,6 +418,18 @@ await rm(feature_dir, { recursive: true });
 // Also remove imports, routes, nav links
 ```
 
+## Documentation References
+
+For better context awareness, reference these documentation files:
+
+- [README.md](./README.md) - Main project documentation
+- [CLAUDE.md](./CLAUDE.md) - This file
+- [scripts/init/README.md](./scripts/init/README.md) - Init command documentation
+- [scripts/generate/README.md](./scripts/generate/README.md) - Generate command documentation
+- [scripts/generate/spa/feature/README.md](./scripts/generate/spa/feature/README.md) - Feature generator
+- [scripts/generate/spa/context/README.md](./scripts/generate/spa/context/README.md) - Context generator
+- [templates/ui-components/COMPONENTS.md](./templates/ui-components/COMPONENTS.md) - UI component roadmap
+
 ## Self-Maintenance
 
 This CLAUDE.md file should be updated whenever:

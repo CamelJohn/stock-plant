@@ -65,6 +65,12 @@ npm run ungenerate:spa:feature ./my-app users,products
 
 [Full generate documentation →](./scripts/generate/README.md)
 
+### UI Components Library
+
+Pre-built, accessible UI components available as opt-in templates.
+
+[View component library roadmap →](./templates/ui-components/COMPONENTS.md)
+
 ## Project Structure
 
 ```
@@ -89,11 +95,15 @@ stock-plant/
 ├── generators/
 │   └── generate-template.ts  # Generic template engine
 ├── templates/
-│   └── spa/                # SPA templates
-│       ├── *.template      # Init templates (flat)
-│       └── page/           # Feature templates
-│           ├── page.tsx.template
-│           └── page.module.css.template
+│   ├── spa/                # SPA templates
+│   │   ├── *.template      # Init templates (flat)
+│   │   ├── page/           # Feature templates
+│   │   │   ├── page.tsx.template
+│   │   │   └── page.module.css.template
+│   │   └── context/        # Context templates
+│   └── ui-components/      # UI component library
+│       ├── COMPONENTS.md   # Component roadmap
+│       └── button/         # Component templates (future)
 └── package.json
 ```
 
