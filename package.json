@@ -5,8 +5,12 @@
   "main": "index.js",
   "scripts": {
     "build": "tsc",
-    "init": "tsx ./scripts/init/index.ts",
-    "generate": "tsx ./scripts/generate/index.ts"
+    "init:spa": "tsx ./cli/cli.ts",
+    "uninit:spa": "tsx ./cli/cli.ts",
+    "generate:spa:feature": "tsx ./cli/cli.ts",
+    "ungenerate:spa:feature": "tsx ./cli/cli.ts",
+    "generate:spa:context": "tsx ./cli/cli.ts",
+    "ungenerate:spa:context": "tsx ./cli/cli.ts"
   },
   "keywords": [],
   "author": "",

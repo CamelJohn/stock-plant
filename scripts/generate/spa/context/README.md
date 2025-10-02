@@ -17,6 +17,7 @@ src/context/theme/
 ## File Contents
 
 ### theme.types.ts
+
 ```typescript
 export interface IThemeState {
   // Add your state properties here
@@ -30,6 +31,7 @@ export type ThemeContextValue = IThemeState & IThemeActions;
 ```
 
 ### theme.context.tsx
+
 ```typescript
 import { createContext } from 'react';
 import type { ThemeContextValue } from './theme.types';
@@ -38,6 +40,7 @@ export const ThemeContext = createContext<ThemeContextValue | undefined>(undefin
 ```
 
 ### theme.provider.tsx
+
 ```typescript
 import { type ReactNode } from 'react';
 import { ThemeContext } from './theme.context';
@@ -54,15 +57,12 @@ export function ThemeProvider({ children }: ThemeProviderProps) {
     // Add your context value here
   };
 
-  return (
-    <ThemeContext.Provider value={value}>
-      {children}
-    </ThemeContext.Provider>
-  );
+  return <ThemeContext.Provider value={value}>{children}</ThemeContext.Provider>;
 }
 ```
 
 ### use-theme.ts
+
 ```typescript
 import { useContext } from 'react';
 import { ThemeContext } from './theme.context';
@@ -86,7 +86,33 @@ npm run generate ./my-app spa context theme
 
 # Generate multiple contexts
 npm run generate ./my-app spa context theme,user,settings
+
+# Generate and wrap root (main.tsx)
+npm run generate ./my-app spa context theme wrap
+
+# Generate and wrap specific page
+npm run generate ./my-app spa context theme wrap dashboard
 ```
+
+## Wrapping
+
+Add `wrap` keyword to automatically wrap your app/page with the provider:
+
+### Wrap Root
+
+```bash
+npm run generate ./my-app spa context theme wrap
+```
+
+Wraps `src/main.tsx` with `<ThemeProvider>` around the router.
+
+### Wrap Specific Page
+
+```bash
+npm run generate ./my-app spa context auth wrap dashboard
+```
+
+Wraps `src/pages/dashboard/dashboard.page.tsx` with `<AuthProvider>` around the component return.
 
 ## Removal
 

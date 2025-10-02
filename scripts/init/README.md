@@ -5,30 +5,25 @@ Creates a new project from templates.
 ## Usage
 
 ```bash
-npm run init <app_type> <project_name>
-npm run init down <app_type> <project_name>
+npm run init:spa <project_name>
+npm run uninit:spa <project_name>
 ```
 
 ## Parameters
 
-- `app_type`: Type of application (spa, ssr, backend)
 - `project_name`: Name of the project (spaces allowed, will be converted to kebab-case)
-
-## Flags
-
-- `down`: Tear down/delete the project
 
 ## Examples
 
 ```bash
 # Create a new SPA project
-npm run init spa my-app
+npm run init:spa my-app
 
 # Create with spaces in name
-npm run init spa "My Awesome App"
+npm run init:spa "My Awesome App"
 
 # Delete a project
-npm run init down spa my-app
+npm run uninit:spa my-app
 ```
 
 ## What it does (SPA)

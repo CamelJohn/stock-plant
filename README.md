@@ -6,13 +6,16 @@ A CLI tool for scaffolding and generating code for web projects. Creates opinion
 
 ```bash
 # Create a new SPA project
-npm run init spa my-app
+npm run init:spa my-app
 
 # Generate features
-npm run generate ./my-app spa feature dashboard,settings,profile
+npm run generate:spa:feature ./my-app dashboard,settings,profile
+
+# Remove features
+npm run ungenerate:spa:feature ./my-app dashboard
 
 # Remove a project
-npm run init down spa my-app
+npm run uninit:spa my-app
 ```
 
 ## Commands
@@ -20,34 +23,44 @@ npm run init down spa my-app
 ### Init - Create Projects
 
 ```bash
-npm run init <app_type> <project_name>
+npm run init:spa <project_name>
+npm run uninit:spa <project_name>
 ```
 
 Creates a complete project with folder structure, routing, and base pages.
 
-**Supported app types:**
-- `spa` - Single Page Application (React + Vite + React Router)
-- `ssr` - Server-Side Rendered (coming soon)
-- `backend` - Backend API (coming soon)
+**Available commands:**
+
+- `init:spa` - Create SPA (React + Vite + React Router)
+- `uninit:spa` - Delete SPA project
+- `init:ssr` - Coming soon
+- `init:backend` - Coming soon
 
 [Full init documentation →](./scripts/init/README.md)
 
 ### Generate - Add Features
 
 ```bash
-npm run generate <project_path> <app_type> <feature_type> <name>
+npm run generate:spa:feature <project_path> <name>
+npm run ungenerate:spa:feature <project_path> <name>
+
+npm run generate:spa:context <project_path> <name> [wrap] [page_name]
+npm run ungenerate:spa:context <project_path> <name>
 ```
 
 Generates code within existing projects.
 
-**Supported feature types:**
-- `feature` - Full feature page with routing and navigation
-- `component` - Reusable component (coming soon)
-- `page` - Simple page (coming soon)
+**Available commands:**
+
+- `generate:spa:feature` - Full feature page with routing and navigation
+- `generate:spa:context` - React Context with provider and hook
+- More coming soon (component, page, etc.)
 
 **Supports bulk generation:**
+
 ```bash
-npm run generate ./my-app spa feature users,products,orders
+npm run generate:spa:feature ./my-app users,products,orders
+npm run ungenerate:spa:feature ./my-app users,products
 ```
 
 [Full generate documentation →](./scripts/generate/README.md)
@@ -57,6 +70,7 @@ npm run generate ./my-app spa feature users,products,orders
 ```
 stock-plant/
 ├── scripts/
+│   ├── cli.ts              # CLI router (reads npm script name)
 │   ├── init/               # Project initialization
 │   │   ├── index.ts        # Router for app types
 │   │   ├── spa/            # SPA-specific init
@@ -88,6 +102,7 @@ stock-plant/
 ### Templates
 
 Templates use placeholder syntax:
+
 - `{{FEATURE_NAME}}` - PascalCase name
 - `{{KEBAB_CASE_NAME}}` - kebab-case name
 - `{{PROJECT_NAME}}` - Project name
@@ -96,9 +111,9 @@ Templates use placeholder syntax:
 
 Input names are automatically converted:
 
-| Input | Folder | Component | File | Route |
-|-------|--------|-----------|------|-------|
-| "dashboard" | `dashboard/` | `DashboardPage` | `dashboard.page.tsx` | `/dashboard` |
+| Input           | Folder           | Component          | File                     | Route            |
+| --------------- | ---------------- | ------------------ | ------------------------ | ---------------- |
+| "dashboard"     | `dashboard/`     | `DashboardPage`    | `dashboard.page.tsx`     | `/dashboard`     |
 | "user settings" | `user-settings/` | `UserSettingsPage` | `user-settings.page.tsx` | `/user-settings` |
 
 ### Generated SPA Structure
@@ -144,12 +159,14 @@ my-app/
 1. Create `scripts/init/<type>/up.ts` and `down.ts`
 2. Create `templates/<type>/` folder
 3. Update `VALID_APP_TYPES` in `scripts/init/index.ts`
+4. Add npm scripts: `init:<type>` and `uninit:<type>` in `package.json`
 
 ### Adding New Feature Types
 
 1. Create `scripts/generate/spa/<type>/up.ts` and `down.ts`
 2. Create templates in `templates/spa/<type>/`
 3. Update `VALID_FEATURE_TYPES` in `scripts/generate/index.ts`
+4. Add npm scripts: `generate:spa:<type>` and `ungenerate:spa:<type>` in `package.json`
 
 ## Technologies
 

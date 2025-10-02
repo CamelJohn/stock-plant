@@ -5,38 +5,46 @@ Generates code in existing projects (pages, components, layouts, etc).
 ## Usage
 
 ```bash
-npm run generate <project_path> <app_type> <feature_type> <name>
-npm run generate down <project_path> <app_type> <feature_type> <name>
+npm run generate:spa:feature <project_path> <name>
+npm run ungenerate:spa:feature <project_path> <name>
+
+npm run generate:spa:context <project_path> <name> [wrap] [page_name]
+npm run ungenerate:spa:context <project_path> <name>
 ```
 
 ## Parameters
 
 - `project_path`: Path to the project (relative or absolute)
-- `app_type`: Type of application (spa, ssr, backend)
-- `feature_type`: Type of feature to generate (feature, component, page)
-- `name`: Name(s) of the feature(s)
-
-## Flags
-
-- `down`: Remove/delete the generated feature
+- `name`: Name(s) of the feature(s) - supports comma-separated for bulk operations
+- `wrap`: (context only) Wrap app or page with provider
+- `page_name`: (context only) Specific page to wrap (omit for root)
 
 ## Examples
 
 ```bash
 # Generate a single feature
-npm run generate ./my-app spa feature dashboard
+npm run generate:spa:feature ./my-app dashboard
 
 # Generate multiple features (comma-separated)
-npm run generate ./my-app spa feature dashboard,settings,profile
+npm run generate:spa:feature ./my-app dashboard,settings,profile
 
 # Generate with multi-word name (converted to kebab-case)
-npm run generate ./my-app spa feature user profile
+npm run generate:spa:feature ./my-app "user profile"
+
+# Generate context
+npm run generate:spa:context ./my-app theme
+
+# Generate context and wrap root
+npm run generate:spa:context ./my-app theme wrap
+
+# Generate context and wrap specific page
+npm run generate:spa:context ./my-app auth wrap dashboard
 
 # Remove a single feature
-npm run generate down ./my-app spa feature dashboard
+npm run ungenerate:spa:feature ./my-app dashboard
 
 # Remove multiple features
-npm run generate down ./my-app spa feature dashboard,settings,profile
+npm run ungenerate:spa:feature ./my-app dashboard,settings,profile
 ```
 
 ## Supported Feature Types
