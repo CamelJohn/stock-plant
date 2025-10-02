@@ -9,8 +9,8 @@ This document tracks the base components we plan to implement as opt-in template
 
 ## Form Components
 
-- ⬜ **Button** - Primary, secondary, danger variants
-- ⬜ **Input** - Text, email, password, number
+- ✅ **Button** - Primary, secondary, danger, ghost variants with loading state
+- ✅ **Input** - Text, email, password, number with label, error, helper text
 - ⬜ **TextArea** - Multi-line text input
 - ⬜ **Select** - Dropdown selection
 - ⬜ **Checkbox** - Single checkbox with label
@@ -19,8 +19,8 @@ This document tracks the base components we plan to implement as opt-in template
 
 ## Layout Components
 
-- ⬜ **Card** - Container with header, body, footer
-- ⬜ **Modal** - Overlay dialog
+- ✅ **Card** - Container with header, body, footer (composable sections)
+- ✅ **Modal** - Overlay dialog with portal, escape/backdrop close, sizes
 - ⬜ **Drawer** - Slide-in panel (left/right)
 - ⬜ **Tabs** - Tab navigation
 - ⬜ **Accordion** - Collapsible sections
@@ -29,19 +29,19 @@ This document tracks the base components we plan to implement as opt-in template
 
 ## Feedback Components
 
-- ⬜ **Alert** - Success, error, warning, info messages
+- ✅ **Alert** - Success, error, warning, info messages with icons and close
 - ⬜ **Toast** - Notification popup
-- ⬜ **Spinner** - Loading indicator
+- ✅ **Spinner** - Loading indicator with sizes and variants
 - ⬜ **ProgressBar** - Progress indicator
 - ⬜ **Skeleton** - Loading placeholder
 
 ## Data Display
 
-- ⬜ **Table** - Basic data table
+- ✅ **Table** - Basic data table with striped/bordered variants, composable
 - ⬜ **List** - Ordered/unordered list with items
 - ⬜ **Badge** - Small status indicator
 - ⬜ **Avatar** - User profile image
-- ⬜ **Tooltip** - Hover information
+- ✅ **Tooltip** - Hover information with positioning and delay
 
 ## Navigation
 
@@ -93,17 +93,30 @@ src/components/
 
 ## Template Location
 
-Component templates are stored in:
+Component templates are organized by category:
 
 ```
 templates/ui-components/
-├── button/
-│   ├── button.tsx.template
-│   ├── button.module.css.template
-│   ├── button.types.ts.template
-│   └── index.ts.template
-├── input/
-│   └── ...
+├── form/                    # Form components
+│   ├── button/
+│   │   ├── button.tsx.template
+│   │   ├── button.module.css.template
+│   │   ├── button.types.ts.template
+│   │   └── index.ts.template
+│   └── input/
+├── layout/                  # Layout components
+│   ├── card/
+│   └── modal/
+├── feedback/                # Feedback components
+│   ├── alert/
+│   └── spinner/
+├── data-display/            # Data display components
+│   ├── tooltip/
+│   └── table/
+├── navigation/              # Navigation components
+│   ├── breadcrumb/
+│   ├── pagination/
+│   └── dropdown/
 └── COMPONENTS.md (this file)
 ```
 

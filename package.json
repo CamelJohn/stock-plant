@@ -16,7 +16,9 @@
     "generate:spa:feature": "tsx ./cli/cli.ts",
     "ungenerate:spa:feature": "tsx ./cli/cli.ts",
     "generate:spa:context": "tsx ./cli/cli.ts",
-    "ungenerate:spa:context": "tsx ./cli/cli.ts"
+    "ungenerate:spa:context": "tsx ./cli/cli.ts",
+    "generate:spa:component": "tsx ./cli/cli.ts",
+    "ungenerate:spa:component": "tsx ./cli/cli.ts"
   },
   "keywords": [],
   "author": "",
