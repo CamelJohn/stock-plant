@@ -1,6 +1,7 @@
 import { join } from 'node:path';
 import { run_terminal_commands } from './utils/run-terminal-commands.util.js';
 import { build_copy_template_command } from './utils/build-copy-template-command.util.js';
+import { generate_template } from '../../generators/generate-template.js';
 
 function build_project_name(raw_project_name: string[]) {
   const joined_raw_project_name = raw_project_name.join(' ');
@@ -56,7 +57,8 @@ async function init(raw_project_name?: string[]) {
 
   const templates = [
     ['main.tsx', ''],
-    ['main-layout.tsx', 'layouts'],
+    ['index.css', ''],
+    ['main-layout.module.css', 'layouts'],
     ['index.tsx', 'routes'],
     ['welcome.tsx', 'pages'],
   ];
@@ -72,6 +74,12 @@ async function init(raw_project_name?: string[]) {
     commands: commands,
     action_name: 'replace root main.tsx',
     cwd: join(project_root_path, 'src'),
+  });
+
+  await generate_template({
+    template_name: 'main-layout.tsx',
+    output_path: join(project_root_path, 'src', 'layouts', 'main-layout.tsx'),
+    replacements: { PROJECT_NAME: project_name },
   });
 
   await run_terminal_commands({

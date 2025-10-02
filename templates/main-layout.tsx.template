@@ -1,8 +1,17 @@
-import { Outlet } from 'react-router';
+import { Outlet, NavLink } from 'react-router';
+import styles from './main-layout.module.css';
 
 export const MainLayout = () => {
   return (
-    <div>
+    <div className={styles.container}>
+      <header className={styles.header}>
+        <h1>{{PROJECT_NAME}}</h1>
+        <nav>
+          <ul>
+            <NavLink to="/">Home</ NavLink>
+          </ul>
+        </nav>
+      </header>
       <Outlet />
     </div>
   );
