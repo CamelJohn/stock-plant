@@ -14,11 +14,11 @@ export async function run_terminal_commands({
   action_name,
   cwd,
 }: IRunTerminalCommandArgs) {
-  console.info(`Started ${action_name}...`);
+  console.info(`Started ${action_name}...\n`);
 
   for (const command of commands) {
     try {
-      console.info(`Running command "${command}"`);
+      console.info(`- Running command "${command}"\n`);
       const { stderr } = await exec_async(command, { cwd });
       if (stderr) console.error(stderr);
     } catch (error: any) {

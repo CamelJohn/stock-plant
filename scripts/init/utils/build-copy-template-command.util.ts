@@ -7,7 +7,7 @@ const templates_directory_path = ['..', '..', '..', 'templates'];
 
 const templates_path = join(template_dir_name, ...templates_directory_path);
 
-interface IBuildCopyTemplateCommandArgs {
+export interface IBuildCopyTemplateCommandArgs {
   file_name: string[];
   destination?: string[];
 }

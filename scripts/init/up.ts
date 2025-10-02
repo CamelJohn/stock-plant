@@ -54,13 +54,22 @@ async function init(raw_project_name?: string[]) {
     cwd: project_root_path,
   });
 
+  const templates = [
+    ['main.tsx', ''],
+    ['main-layout.tsx', 'layouts'],
+    ['index.tsx', 'routes'],
+    ['welcome.tsx', 'pages'],
+  ];
+
+  const commands = templates.map(([file_name, destination]) =>
+    build_copy_template_command({
+      file_name: file_name ? [file_name] : [],
+      destination: destination ? [destination] : [],
+    })
+  );
+
   await run_terminal_commands({
-    commands: [
-      build_copy_template_command({ file_name: ['main.tsx'], destination: [] }),
-      build_copy_template_command({ file_name: ['layouts', 'main.tsx'], destination: ['layouts'] }),
-      build_copy_template_command({ file_name: ['routes', 'index.tsx'], destination: ['routes'] }),
-      build_copy_template_command({ file_name: ['pages', 'welcome.tsx'], destination: ['pages'] }),
-    ],
+    commands: commands,
     action_name: 'replace root main.tsx',
     cwd: join(project_root_path, 'src'),
   });
