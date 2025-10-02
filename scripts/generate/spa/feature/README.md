@@ -80,13 +80,20 @@ Creates:
 
 ## Removal
 
+### Single Feature
 ```bash
 npm run generate down ./my-app spa feature dashboard
 ```
 
-Removes the `src/pages/dashboard/` folder.
+### Bulk Removal
+```bash
+npm run generate down ./my-app spa feature dashboard,settings,profile
+```
 
-**Note:** Does not automatically remove routes or nav links - you must clean those up manually.
+Removes the `src/pages/<name>/` folders and automatically cleans up:
+- Import statements in `src/routes/index.tsx`
+- Route entries in `src/routes/index.tsx`
+- Navigation links in `src/layouts/main-layout.tsx`
 
 ## Implementation Details
 

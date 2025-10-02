@@ -32,8 +32,11 @@ npm run generate ./my-app spa feature dashboard,settings,profile
 # Generate with multi-word name (converted to kebab-case)
 npm run generate ./my-app spa feature user profile
 
-# Remove a feature
+# Remove a single feature
 npm run generate down ./my-app spa feature dashboard
+
+# Remove multiple features
+npm run generate down ./my-app spa feature dashboard,settings,profile
 ```
 
 ## Supported Feature Types
