@@ -1,0 +1,117 @@
+{
+  "name": "auth",
+  "description": "Complete authentication system with login/signup",
+  "variants": {
+    "default": "page",
+    "available": ["modal", "page", "hybrid"]
+  },
+  "shared": {
+    "directories": [
+      "features/auth/context",
+      "features/auth/components",
+      "api"
+    ],
+    "files": {
+      "context": [
+        "auth.types.ts",
+        "auth.context.ts",
+        "auth.provider.tsx",
+        "use-auth.ts"
+      ],
+      "components": [
+        "login-form.tsx",
+        "signup-form.tsx",
+        "auth-form.module.css"
+      ],
+      "api": [
+        "auth.ts"
+      ]
+    }
+  },
+  "variants_config": {
+    "modal": {
+      "directories": [],
+      "files": {
+        "components": [
+          "auth-modal.tsx",
+          "auth-modal.module.css"
+        ]
+      },
+      "modifications": {
+        "main.tsx": {
+          "imports": [
+            "import { AuthProvider } from './features/auth/context/auth.provider';",
+            "import { AuthModal } from './features/auth/components/auth-modal';"
+          ],
+          "wrap": {
+            "component": "AuthProvider",
+            "children": ["AuthModal"]
+          }
+        }
+      }
+    },
+    "page": {
+      "directories": [
+        "pages/login",
+        "pages/signup"
+      ],
+      "files": {
+        "pages": {
+          "login": [
+            "login.page.tsx",
+            "auth-page.module.css"
+          ],
+          "signup": [
+            "signup.page.tsx",
+            "auth-page.module.css"
+          ]
+        },
+        "components": [
+          "protected-route.tsx"
+        ]
+      },
+      "routes": [
+        {
+          "path": "login",
+          "component": "LoginPage",
+          "import": "import { LoginPage } from '../pages/login/login.page';"
+        },
+        {
+          "path": "signup",
+          "component": "SignupPage",
+          "import": "import { SignupPage } from '../pages/signup/signup.page';"
+        }
+      ],
+      "modifications": {
+        "main.tsx": {
+          "imports": [
+            "import { AuthProvider } from './features/auth/context/auth.provider';"
+          ],
+          "wrap": {
+            "component": "AuthProvider",
+            "children": []
+          }
+        }
+      }
+    },
+    "hybrid": {
+      "extends": ["modal", "page"],
+      "modifications": {
+        "main.tsx": {
+          "imports": [
+            "import { AuthProvider } from './features/auth/context/auth.provider';",
+            "import { AuthModal } from './features/auth/components/auth-modal';"
+          ],
+          "wrap": {
+            "component": "AuthProvider",
+            "children": ["AuthModal"]
+          }
+        }
+      }
+    }
+  },
+  "test_credentials": {
+    "email": "demo@example.com",
+    "password": "password"
+  }
+}

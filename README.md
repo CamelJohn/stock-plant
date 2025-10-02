@@ -5,7 +5,10 @@ A CLI tool for scaffolding and generating code for web projects. Creates opinion
 ## Quick Start
 
 ```bash
-# Create a new SPA project (with auth included)
+# Create a complete dashboard app (fastest way to start)
+npm run init:app dashboard my-admin-panel
+
+# OR create a basic SPA project (with auth included)
 npm run init:spa my-app
 
 # Test credentials: demo@example.com / password
@@ -23,14 +26,44 @@ npm run uninit:spa my-app
 
 ## Commands
 
-### Init - Create Projects
+### Init Apps - Complete Applications
+
+```bash
+npm run init:app <app_name> <project_name>
+npm run uninit:app <app_name> <project_name>
+```
+
+Generate complete, production-ready applications from templates.
+
+**Available apps:**
+- `dashboard` - Admin dashboard with user management, analytics, and settings
+
+**Example:**
+```bash
+# Create dashboard app
+npm run init:app dashboard my-admin-panel
+
+# Remove dashboard app
+npm run uninit:app dashboard my-admin-panel
+```
+
+**What you get:**
+- Everything from `init:spa` (auth, routing, pages)
+- Additional feature pages (Analytics, Users, Settings)
+- App-specific components (coming soon)
+- Wired-up navigation and routes
+- Mock APIs for all entities
+
+[Full app templates documentation →](./templates/apps/README.md)
+
+### Init - Create Base Projects
 
 ```bash
 npm run init:spa <project_name>
 npm run uninit:spa <project_name>
 ```
 
-Creates a complete project with folder structure, routing, auth, and base pages.
+Creates a base project with folder structure, routing, auth, and starter pages.
 
 **What you get:**
 - React + Vite + React Router setup

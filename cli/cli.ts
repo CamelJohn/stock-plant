@@ -29,6 +29,19 @@ if (!command) {
 const parts = command.split(':');
 const action = parts[0];
 
+// Special cases: init:app and uninit:app use different routing
+if (command === 'init:app') {
+  const script_path = join(__dirname, '../scripts/init/app/up.ts');
+  spawn('tsx', [script_path, '--', ...args], { stdio: 'inherit' });
+  process.exit(0);
+}
+
+if (command === 'uninit:app') {
+  const script_path = join(__dirname, '../scripts/init/app/down.ts');
+  spawn('tsx', [script_path, '--', ...args], { stdio: 'inherit' });
+  process.exit(0);
+}
+
 // Command routing configuration
 const COMMAND_MAP: Record<string, ICommandConfig> = {
   init: {

@@ -1,0 +1,129 @@
+import { useState } from 'react';
+import styles from './settings.module.css';
+
+export function SettingsPage() {
+  const [settings, setSettings] = useState({
+    siteName: 'My Dashboard',
+    adminEmail: 'admin@example.com',
+    enableNotifications: true,
+    enableAnalytics: true,
+    maintenanceMode: false,
+  });
+
+  const handleSave = () => {
+    console.log('Saving settings:', settings);
+    alert('Settings saved successfully!');
+  };
+
+  return (
+    <div className={styles.container}>
+      <div className={styles.header}>
+        <h1>Settings</h1>
+        <p className={styles.subtitle}>Manage your application configuration</p>
+      </div>
+
+      <div className={styles.content}>
+        <div className={styles.section}>
+          <h2 className={styles.sectionTitle}>General</h2>
+          <div className={styles.formGroup}>
+            <label htmlFor="siteName" className={styles.label}>
+              Site Name
+            </label>
+            <input
+              id="siteName"
+              type="text"
+              className={styles.input}
+              value={settings.siteName}
+              onChange={(e) => setSettings({ ...settings, siteName: e.target.value })}
+            />
+          </div>
+
+          <div className={styles.formGroup}>
+            <label htmlFor="adminEmail" className={styles.label}>
+              Admin Email
+            </label>
+            <input
+              id="adminEmail"
+              type="email"
+              className={styles.input}
+              value={settings.adminEmail}
+              onChange={(e) => setSettings({ ...settings, adminEmail: e.target.value })}
+            />
+          </div>
+        </div>
+
+        <div className={styles.section}>
+          <h2 className={styles.sectionTitle}>Features</h2>
+
+          <div className={styles.toggleGroup}>
+            <div className={styles.toggleInfo}>
+              <div className={styles.toggleLabel}>Email Notifications</div>
+              <div className={styles.toggleDescription}>
+                Receive email notifications for important events
+              </div>
+            </div>
+            <label className={styles.switch}>
+              <input
+                type="checkbox"
+                checked={settings.enableNotifications}
+                onChange={(e) =>
+                  setSettings({ ...settings, enableNotifications: e.target.checked })
+                }
+              />
+              <span className={styles.slider}></span>
+            </label>
+          </div>
+
+          <div className={styles.toggleGroup}>
+            <div className={styles.toggleInfo}>
+              <div className={styles.toggleLabel}>Analytics Tracking</div>
+              <div className={styles.toggleDescription}>
+                Enable analytics and usage tracking
+              </div>
+            </div>
+            <label className={styles.switch}>
+              <input
+                type="checkbox"
+                checked={settings.enableAnalytics}
+                onChange={(e) =>
+                  setSettings({ ...settings, enableAnalytics: e.target.checked })
+                }
+              />
+              <span className={styles.slider}></span>
+            </label>
+          </div>
+        </div>
+
+        <div className={styles.section}>
+          <h2 className={styles.sectionTitle}>Maintenance</h2>
+
+          <div className={styles.toggleGroup}>
+            <div className={styles.toggleInfo}>
+              <div className={styles.toggleLabel}>Maintenance Mode</div>
+              <div className={styles.toggleDescription}>
+                Temporarily disable access to the application
+              </div>
+            </div>
+            <label className={styles.switch}>
+              <input
+                type="checkbox"
+                checked={settings.maintenanceMode}
+                onChange={(e) =>
+                  setSettings({ ...settings, maintenanceMode: e.target.checked })
+                }
+              />
+              <span className={styles.slider}></span>
+            </label>
+          </div>
+        </div>
+
+        <div className={styles.actions}>
+          <button className={styles.saveButton} onClick={handleSave}>
+            Save Changes
+          </button>
+          <button className={styles.cancelButton}>Cancel</button>
+        </div>
+      </div>
+    </div>
+  );
+}

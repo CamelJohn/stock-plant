@@ -1,0 +1,113 @@
+{
+  "name": "dashboard",
+  "description": "Admin dashboard with user management, analytics, and settings",
+  "base": "spa",
+  "scaffolds": [
+    {
+      "type": "auth",
+      "variant": "page"
+    }
+  ],
+  "features": [
+    {
+      "name": "analytics",
+      "protected": true,
+      "description": "Analytics dashboard with charts and KPIs"
+    },
+    {
+      "name": "users",
+      "protected": true,
+      "description": "User management CRUD"
+    },
+    {
+      "name": "settings",
+      "protected": true,
+      "description": "Application settings"
+    }
+  ],
+  "components": [
+    {
+      "name": "stat-card",
+      "description": "Card displaying a statistic with icon and trend"
+    },
+    {
+      "name": "data-table",
+      "description": "Sortable and filterable data table"
+    },
+    {
+      "name": "chart",
+      "description": "Simple line/bar chart component"
+    }
+  ],
+  "pages": [
+    {
+      "name": "home",
+      "protected": false,
+      "description": "Public landing page"
+    },
+    {
+      "name": "dashboard",
+      "protected": true,
+      "description": "Main dashboard overview with stats"
+    },
+    {
+      "name": "analytics",
+      "protected": true,
+      "description": "Detailed analytics page"
+    },
+    {
+      "name": "users",
+      "protected": true,
+      "description": "User management page"
+    },
+    {
+      "name": "settings",
+      "protected": true,
+      "description": "Settings page"
+    }
+  ],
+  "routes": [
+    {
+      "path": "/",
+      "page": "home",
+      "protected": false
+    },
+    {
+      "path": "/dashboard",
+      "page": "dashboard",
+      "protected": true
+    },
+    {
+      "path": "/analytics",
+      "page": "analytics",
+      "protected": true
+    },
+    {
+      "path": "/users",
+      "page": "users",
+      "protected": true
+    },
+    {
+      "path": "/settings",
+      "page": "settings",
+      "protected": true
+    }
+  ],
+  "navigation": [
+    "home",
+    "dashboard",
+    "analytics",
+    "users",
+    "settings"
+  ],
+  "mock_data": {
+    "users": {
+      "count": 50,
+      "fields": ["id", "name", "email", "role", "status", "created_at"]
+    },
+    "analytics": {
+      "metrics": ["pageviews", "users", "revenue", "conversions"],
+      "timeRange": "30d"
+    }
+  }
+}

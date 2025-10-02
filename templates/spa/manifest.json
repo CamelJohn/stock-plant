@@ -1,0 +1,92 @@
+{
+  "name": "spa",
+  "description": "Single Page Application with React, Vite, and React Router",
+  "base": {
+    "type": "vite-react-ts",
+    "command": "npm create vite@latest {{PROJECT_NAME}} -- --template react-ts"
+  },
+  "dependencies": {
+    "install": ["react-router"],
+    "cleanup": ["src/App*"]
+  },
+  "structure": {
+    "directories": [
+      "src/pages",
+      "src/context",
+      "src/api",
+      "src/components",
+      "src/features",
+      "src/layouts",
+      "src/routes"
+    ]
+  },
+  "templates": {
+    "root": [
+      {
+        "source": "main.tsx",
+        "destination": "src/main.tsx"
+      },
+      {
+        "source": "index.css",
+        "destination": "src/index.css"
+      },
+      {
+        "source": "vite.config.ts",
+        "destination": "vite.config.ts"
+      }
+    ],
+    "layouts": [
+      {
+        "source": "main-layout.tsx",
+        "destination": "src/layouts/main-layout.tsx",
+        "replacements": {
+          "PROJECT_NAME": "{{PROJECT_NAME}}"
+        }
+      },
+      {
+        "source": "main-layout.module.css",
+        "destination": "src/layouts/main-layout.module.css"
+      }
+    ],
+    "routes": [
+      {
+        "source": "index.tsx",
+        "destination": "src/routes/index.tsx"
+      }
+    ]
+  },
+  "pages": [
+    {
+      "name": "home",
+      "protected": false,
+      "navigation": true
+    },
+    {
+      "name": "welcome",
+      "protected": false,
+      "navigation": true
+    },
+    {
+      "name": "dashboard",
+      "protected": true,
+      "navigation": true
+    },
+    {
+      "name": "not-found",
+      "protected": false,
+      "navigation": false,
+      "type": "error",
+      "route": "*"
+    }
+  ],
+  "scaffolds": [
+    {
+      "type": "auth",
+      "variant": "page",
+      "required": true
+    }
+  ],
+  "post_setup": {
+    "command": "npm run dev"
+  }
+}
