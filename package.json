@@ -2,11 +2,15 @@
   "name": "stock-plant",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "dist/cli/cli.js",
+  "bin": {
+    "stock-plant": "./dist/cli/cli.js"
+  },
+  "files": [
+    "dist"
+  ],
   "scripts": {
-    "build": "tsc",
-    "postbuild": "cp -r templates dist/templates",
-    "prebuild": "rm -rf dist",
+    "build": "./shell-scripts/build.sh",
     "init:spa": "tsx ./cli/cli.ts",
     "uninit:spa": "tsx ./cli/cli.ts",
     "generate:spa:feature": "tsx ./cli/cli.ts",
