@@ -1,0 +1,14 @@
+import { createBrowserRouter, type RouteObject } from 'react-router';
+import { MainLayout } from '../layouts/main';
+import { WelcomePage } from '../pages/welcome';
+
+const routes: RouteObject[] = [{
+    path: '',
+    Component: MainLayout,
+    children: [{
+        index: true,
+        Component: WelcomePage
+    }]
+}];
+
+export const router = createBrowserRouter(routes);
