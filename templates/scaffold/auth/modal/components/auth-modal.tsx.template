@@ -1,0 +1,24 @@
+import { useState } from 'react';
+import { useAuth } from '../../shared/context/use-auth';
+import { LoginForm } from '../../shared/components/login-form';
+import { SignupForm } from '../../shared/components/signup-form';
+import styles from './auth-modal.module.css';
+
+export function AuthModal() {
+  const { isAuthenticated } = useAuth();
+  const [mode, setMode] = useState<'login' | 'signup'>('login');
+
+  if (isAuthenticated) return null;
+
+  return (
+    <div className={styles.backdrop}>
+      <div className={styles.modal} role="dialog" aria-modal="true">
+        {mode === 'login' ? (
+          <LoginForm onSwitchToSignup={() => setMode('signup')} />
+        ) : (
+          <SignupForm onSwitchToLogin={() => setMode('login')} />
+        )}
+      </div>
+    </div>
+  );
+}

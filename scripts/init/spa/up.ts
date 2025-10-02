@@ -128,6 +128,24 @@ async function init(raw_project_name?: string[]) {
     replacements: {},
   });
 
+  // Generate Not Found page
+  const not_found_page_dir = join(project_root_path, 'src', 'pages', 'not-found');
+  await mkdir(not_found_page_dir, { recursive: true });
+
+  await generate_template({
+    app_type: APP_TYPE,
+    template_name: 'page/not-found.page.tsx',
+    output_path: join(not_found_page_dir, 'not-found.page.tsx'),
+    replacements: {},
+  });
+
+  await generate_template({
+    app_type: APP_TYPE,
+    template_name: 'page/not-found.module.css',
+    output_path: join(not_found_page_dir, 'not-found.module.css'),
+    replacements: {},
+  });
+
   // Add NavLink for Welcome page to MainLayout
   const main_layout_file = join(project_root_path, 'src', 'layouts', 'main-layout.tsx');
   const { replace_file_contents } = await import('./utils/replace-file-content.js');

@@ -121,6 +121,44 @@ const COMMAND_MAP: Record<string, ICommandConfig> = {
       };
     },
   },
+  scaffold: {
+    script: '../scripts/scaffold/auth/up.ts',
+    buildArgs: (parts, userArgs) => {
+      // scaffold:auth ./app [variant] -> [./app, variant]
+      const scaffold_type = parts[1]!; // Safe after validation
+
+      if (scaffold_type !== 'auth') {
+        console.error(`Error: Unknown scaffold type "${scaffold_type}"`);
+        console.error('Available scaffolds: auth');
+        process.exit(1);
+      }
+
+      return userArgs; // Pass through as-is
+    },
+    validate: (parts) => ({
+      valid: !!parts[1],
+      error: 'Invalid command format. Expected: scaffold:<type>',
+    }),
+  },
+  unscaffold: {
+    script: '../scripts/scaffold/auth/down.ts',
+    buildArgs: (parts, userArgs) => {
+      // unscaffold:auth ./app -> [./app, auth]
+      const scaffold_type = parts[1]!; // Safe after validation
+
+      if (scaffold_type !== 'auth') {
+        console.error(`Error: Unknown scaffold type "${scaffold_type}"`);
+        console.error('Available scaffolds: auth');
+        process.exit(1);
+      }
+
+      return userArgs; // Pass through as-is
+    },
+    validate: (parts) => ({
+      valid: !!parts[1],
+      error: 'Invalid command format. Expected: unscaffold:<type>',
+    }),
+  },
 };
 
 const config = action ? COMMAND_MAP[action] : undefined;

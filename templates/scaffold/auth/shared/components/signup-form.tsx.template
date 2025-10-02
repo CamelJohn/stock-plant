@@ -1,0 +1,108 @@
+import { useState, type FormEvent } from 'react';
+import { useAuth } from '../context/use-auth';
+import styles from './auth-form.module.css';
+
+interface SignupFormProps {
+  onSuccess?: () => void;
+  onSwitchToLogin?: () => void;
+}
+
+export function SignupForm({ onSuccess, onSwitchToLogin }: SignupFormProps) {
+  const { signup, isLoading } = useAuth();
+  const [name, setName] = useState('');
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [error, setError] = useState('');
+
+  const handleSubmit = async (e: FormEvent) => {
+    e.preventDefault();
+    setError('');
+
+    try {
+      await signup(email, password, name);
+      onSuccess?.();
+    } catch (err) {
+      setError(err instanceof Error ? err.message : 'Signup failed');
+    }
+  };
+
+  return (
+    <form className={styles.form} onSubmit={handleSubmit}>
+      <h2 className={styles.title}>Create account</h2>
+      <p className={styles.subtitle}>Get started with a new account</p>
+
+      {error && (
+        <div className={styles.error} role="alert">
+          {error}
+        </div>
+      )}
+
+      <div className={styles.field}>
+        <label htmlFor="name" className={styles.label}>
+          Name
+        </label>
+        <input
+          id="name"
+          type="text"
+          value={name}
+          onChange={(e) => setName(e.target.value)}
+          className={styles.input}
+          required
+          disabled={isLoading}
+          placeholder="John Doe"
+        />
+      </div>
+
+      <div className={styles.field}>
+        <label htmlFor="email" className={styles.label}>
+          Email
+        </label>
+        <input
+          id="email"
+          type="email"
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
+          className={styles.input}
+          required
+          disabled={isLoading}
+          placeholder="you@example.com"
+        />
+      </div>
+
+      <div className={styles.field}>
+        <label htmlFor="password" className={styles.label}>
+          Password
+        </label>
+        <input
+          id="password"
+          type="password"
+          value={password}
+          onChange={(e) => setPassword(e.target.value)}
+          className={styles.input}
+          required
+          disabled={isLoading}
+          minLength={8}
+          placeholder="••••••••"
+        />
+      </div>
+
+      <button type="submit" className={styles.button} disabled={isLoading}>
+        {isLoading ? 'Creating account...' : 'Sign up'}
+      </button>
+
+      {onSwitchToLogin && (
+        <p className={styles.footer}>
+          Already have an account?{' '}
+          <button
+            type="button"
+            onClick={onSwitchToLogin}
+            className={styles.link}
+            disabled={isLoading}
+          >
+            Sign in
+          </button>
+        </p>
+      )}
+    </form>
+  );
+}

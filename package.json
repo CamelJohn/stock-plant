@@ -18,7 +18,9 @@
     "generate:spa:context": "tsx ./cli/cli.ts",
     "ungenerate:spa:context": "tsx ./cli/cli.ts",
     "generate:component": "tsx ./cli/cli.ts",
-    "ungenerate:component": "tsx ./cli/cli.ts"
+    "ungenerate:component": "tsx ./cli/cli.ts",
+    "scaffold:auth": "tsx ./cli/cli.ts",
+    "unscaffold:auth": "tsx ./cli/cli.ts"
   },
   "keywords": [],
   "author": "",

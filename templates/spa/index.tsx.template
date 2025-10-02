@@ -2,6 +2,7 @@ import { createBrowserRouter, type RouteObject } from 'react-router';
 import { MainLayout } from '../layouts/main-layout';
 import { HomePage } from '../pages/home/home.page';
 import { WelcomePage } from '../pages/welcome/welcome.page';
+import { NotFoundPage } from '../pages/not-found/not-found.page';
 
 const routes: RouteObject[] = [{
     path: '',
@@ -12,6 +13,9 @@ const routes: RouteObject[] = [{
     }, {
         path: 'welcome',
         Component: WelcomePage
+    }, {
+        path: '*',
+        Component: NotFoundPage
     }]
 }];
 

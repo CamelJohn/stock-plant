@@ -1,0 +1,90 @@
+import { useState, type FormEvent } from 'react';
+import { useAuth } from '../context/use-auth';
+import styles from './auth-form.module.css';
+
+interface LoginFormProps {
+  onSuccess?: () => void;
+  onSwitchToSignup?: () => void;
+}
+
+export function LoginForm({ onSuccess, onSwitchToSignup }: LoginFormProps) {
+  const { login, isLoading } = useAuth();
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [error, setError] = useState('');
+
+  const handleSubmit = async (e: FormEvent) => {
+    e.preventDefault();
+    setError('');
+
+    try {
+      await login(email, password);
+      onSuccess?.();
+    } catch (err) {
+      setError(err instanceof Error ? err.message : 'Login failed');
+    }
+  };
+
+  return (
+    <form className={styles.form} onSubmit={handleSubmit}>
+      <h2 className={styles.title}>Welcome back</h2>
+      <p className={styles.subtitle}>Sign in to your account</p>
+
+      {error && (
+        <div className={styles.error} role="alert">
+          {error}
+        </div>
+      )}
+
+      <div className={styles.field}>
+        <label htmlFor="email" className={styles.label}>
+          Email
+        </label>
+        <input
+          id="email"
+          type="email"
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
+          className={styles.input}
+          required
+          disabled={isLoading}
+          placeholder="you@example.com"
+        />
+      </div>
+
+      <div className={styles.field}>
+        <label htmlFor="password" className={styles.label}>
+          Password
+        </label>
+        <input
+          id="password"
+          type="password"
+          value={password}
+          onChange={(e) => setPassword(e.target.value)}
+          className={styles.input}
+          required
+          disabled={isLoading}
+          placeholder="••••••••"
+        />
+      </div>
+
+      <button type="submit" className={styles.button} disabled={isLoading}>
+        {isLoading ? 'Signing in...' : 'Sign in'}
+      </button>
+
+      {onSwitchToSignup && (
+        <p className={styles.footer}>
+          Don't have an account?{' '}
+          <button
+            type="button"
+            onClick={onSwitchToSignup}
+            className={styles.link}
+            disabled={isLoading}
+          >
+            Sign up
+          </button>
+        </p>
+      )}
+    </form>
+  );
+}

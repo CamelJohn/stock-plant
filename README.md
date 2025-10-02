@@ -65,6 +65,37 @@ npm run ungenerate:spa:feature ./my-app users,products
 
 [Full generate documentation →](./scripts/generate/README.md)
 
+### Scaffold - Complete Patterns
+
+Build complete, interconnected features that span multiple layers (context + components + pages + API).
+
+```bash
+npm run scaffold:auth <project_path> [variant]
+npm run unscaffold:auth <project_path>
+```
+
+**Auth variants:**
+- `modal` - Content-blocking modal auth (best for internal tools/dashboards)
+- `page` - Traditional login/signup pages with redirects (best for SEO-friendly apps)
+- `hybrid` - Both modal and page approaches
+
+**Example:**
+```bash
+npm run scaffold:auth ./my-app modal
+npm run scaffold:auth ./my-app page
+npm run scaffold:auth ./my-app hybrid
+```
+
+**What gets scaffolded:**
+- Complete auth context with React Context API
+- Login/signup forms with validation
+- Auth API with mock implementation
+- Protected route components
+- Pages (for page/hybrid variants)
+- Modal (for modal/hybrid variants)
+
+[Full scaffold documentation →](./scripts/scaffold/auth/README.md)
+
 ### UI Components Library
 
 Pre-built, accessible UI components available as opt-in templates.
@@ -85,8 +116,9 @@ npm run generate:component ./my-app Button,Input,Card
 
 ```
 stock-plant/
+├── cli/
+│   └── cli.ts              # CLI router (reads npm script name)
 ├── scripts/
-│   ├── cli.ts              # CLI router (reads npm script name)
 │   ├── init/               # Project initialization
 │   │   ├── index.ts        # Router for app types
 │   │   ├── spa/            # SPA-specific init
@@ -94,14 +126,19 @@ stock-plant/
 │   │   │   ├── down.ts     # Delete project
 │   │   │   └── utils/      # Shared utilities
 │   │   └── README.md
-│   └── generate/           # Code generation
-│       ├── index.ts        # Router for generators
-│       ├── spa/            # SPA-specific generators
-│       │   └── feature/    # Feature generator
-│       │       ├── up.ts   # Create feature
-│       │       ├── down.ts # Delete feature
-│       │       └── README.md
-│       └── README.md
+│   ├── generate/           # Code generation
+│   │   ├── index.ts        # Router for generators
+│   │   ├── spa/            # SPA-specific generators
+│   │   │   └── feature/    # Feature generator
+│   │   │       ├── up.ts   # Create feature
+│   │   │       ├── down.ts # Delete feature
+│   │   │       └── README.md
+│   │   └── README.md
+│   └── scaffold/           # Complete patterns (auth, etc.)
+│       └── auth/           # Auth scaffold
+│           ├── up.ts       # Generate auth
+│           ├── down.ts     # Remove auth
+│           └── README.md
 ├── generators/
 │   └── generate-template.ts  # Generic template engine
 ├── templates/
@@ -111,6 +148,12 @@ stock-plant/
 │   │   │   ├── page.tsx.template
 │   │   │   └── page.module.css.template
 │   │   └── context/        # Context templates
+│   ├── scaffold/           # Scaffold templates
+│   │   └── auth/           # Auth templates
+│   │       ├── shared/     # Shared across all variants
+│   │       ├── modal/      # Modal-specific
+│   │       ├── page/       # Page-specific
+│   │       └── hybrid/     # Hybrid-specific
 │   └── ui-components/      # UI component library
 │       ├── COMPONENTS.md   # Component roadmap
 │       └── button/         # Component templates (future)
@@ -144,6 +187,10 @@ my-app/
 │   ├── api/              # API calls
 │   ├── components/       # Reusable components
 │   ├── context/          # React context
+│   ├── features/         # Feature modules (scaffolds)
+│   │   └── auth/         # Auth feature (from scaffold)
+│   │       ├── context/
+│   │       └── components/
 │   ├── layouts/          # Layout components
 │   │   ├── main-layout.tsx
 │   │   └── main-layout.module.css
@@ -151,6 +198,9 @@ my-app/
 │   │   ├── home/
 │   │   │   ├── home.page.tsx
 │   │   │   └── home.module.css
+│   │   ├── not-found/
+│   │   │   ├── not-found.page.tsx
+│   │   │   └── not-found.module.css
 │   │   └── welcome/
 │   │       ├── welcome.page.tsx
 │   │       └── welcome.module.css
@@ -170,6 +220,9 @@ my-app/
 ✅ Navigation links generation
 ✅ Module CSS scoping
 ✅ Bulk feature generation
+✅ Complete auth scaffolding (3 variants)
+✅ Protected routes and redirects
+✅ 404 error pages
 ✅ Customizable templates
 
 ## Development
@@ -187,6 +240,13 @@ my-app/
 2. Create templates in `templates/spa/<type>/`
 3. Update `VALID_FEATURE_TYPES` in `scripts/generate/index.ts`
 4. Add npm scripts: `generate:spa:<type>` and `ungenerate:spa:<type>` in `package.json`
+
+### Adding New Scaffold Types
+
+1. Create `scripts/scaffold/<type>/up.ts` and `down.ts`
+2. Create templates in `templates/scaffold/<type>/`
+3. Update `COMMAND_MAP` in `cli/cli.ts`
+4. Add npm scripts: `scaffold:<type>` and `unscaffold:<type>` in `package.json`
 
 ## Technologies
 

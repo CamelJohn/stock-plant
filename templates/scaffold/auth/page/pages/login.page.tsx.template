@@ -1,0 +1,26 @@
+import { LoginForm } from '../../features/auth/components/login-form';
+import { useNavigate } from 'react-router';
+import { useEffect } from 'react';
+import { useAuth } from '../../features/auth/context/use-auth';
+import styles from './auth-page.module.css';
+
+export function LoginPage() {
+  const navigate = useNavigate();
+  const { isAuthenticated } = useAuth();
+
+  useEffect(() => {
+    if (isAuthenticated) {
+      const returnUrl = new URLSearchParams(window.location.search).get('returnUrl');
+      navigate(returnUrl || '/', { replace: true });
+    }
+  }, [isAuthenticated, navigate]);
+
+  return (
+    <div className={styles.container}>
+      <div className={styles.card}>
+        <h1 className={styles.title}>Welcome Back</h1>
+        <LoginForm onSwitchToSignup={() => navigate('/signup')} />
+      </div>
+    </div>
+  );
+}

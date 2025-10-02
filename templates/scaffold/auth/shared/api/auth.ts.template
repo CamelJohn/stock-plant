@@ -1,0 +1,68 @@
+import type { User } from '../context/auth.types';
+
+// TODO: Replace with your actual API endpoint
+const API_URL = '/api/auth';
+
+export async function login(email: string, password: string): Promise<User> {
+  // TODO: Implement actual API call
+  // Example:
+  // const response = await fetch(`${API_URL}/login`, {
+  //   method: 'POST',
+  //   headers: { 'Content-Type': 'application/json' },
+  //   body: JSON.stringify({ email, password }),
+  // });
+  // if (!response.ok) throw new Error('Login failed');
+  // const data = await response.json();
+  // localStorage.setItem('token', data.token);
+  // return data.user;
+
+  // Mock implementation
+  await new Promise((resolve) => setTimeout(resolve, 1000));
+
+  if (email === 'demo@example.com' && password === 'password') {
+    const user: User = {
+      id: '1',
+      email,
+      name: 'Demo User',
+    };
+    localStorage.setItem('user', JSON.stringify(user));
+    return user;
+  }
+
+  throw new Error('Invalid credentials');
+}
+
+export async function signup(
+  email: string,
+  password: string,
+  name: string
+): Promise<User> {
+  // TODO: Implement actual API call
+  // Mock implementation
+  await new Promise((resolve) => setTimeout(resolve, 1000));
+
+  const user: User = {
+    id: Date.now().toString(),
+    email,
+    name,
+  };
+
+  localStorage.setItem('user', JSON.stringify(user));
+  return user;
+}
+
+export function logout(): void {
+  localStorage.removeItem('user');
+  localStorage.removeItem('token');
+}
+
+export function getCurrentUser(): User | null {
+  const userStr = localStorage.getItem('user');
+  if (!userStr) return null;
+
+  try {
+    return JSON.parse(userStr);
+  } catch {
+    return null;
+  }
+}

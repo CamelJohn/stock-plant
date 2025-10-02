@@ -1,0 +1,25 @@
+import { SignupForm } from '../../features/auth/components/signup-form';
+import { useNavigate } from 'react-router';
+import { useEffect } from 'react';
+import { useAuth } from '../../features/auth/context/use-auth';
+import styles from './auth-page.module.css';
+
+export function SignupPage() {
+  const navigate = useNavigate();
+  const { isAuthenticated } = useAuth();
+
+  useEffect(() => {
+    if (isAuthenticated) {
+      navigate('/', { replace: true });
+    }
+  }, [isAuthenticated, navigate]);
+
+  return (
+    <div className={styles.container}>
+      <div className={styles.card}>
+        <h1 className={styles.title}>Create Account</h1>
+        <SignupForm onSwitchToLogin={() => navigate('/login')} />
+      </div>
+    </div>
+  );
+}
