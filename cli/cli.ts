@@ -2,10 +2,15 @@ import { spawn } from 'node:child_process';
 import { dirname, join } from 'node:path';
 import { fileURLToPath } from 'node:url';
 
+interface IValidateReturn {
+  valid: boolean;
+  error?: string;
+}
+
 interface ICommandConfig {
   script: string;
   buildArgs: (parts: string[], userArgs: string[]) => string[];
-  validate: (parts: string[]) => { valid: boolean; error?: string };
+  validate: (parts: string[]) => IValidateReturn;
 }
 
 const __filename = fileURLToPath(import.meta.url);
@@ -51,7 +56,11 @@ const COMMAND_MAP: Record<string, ICommandConfig> = {
     buildArgs: (parts, userArgs) => {
       const app_type = parts[1]!; // Safe after validation
       const feature_type = parts[2]!; // Safe after validation
-      return [...userArgs, app_type, feature_type];
+      // userArgs = [project_path, ...names]
+      // Need: [project_path, app_type, feature_type, ...names]
+      const project_path = userArgs[0]!;
+      const names = userArgs.slice(1);
+      return [project_path, app_type, feature_type, ...names];
     },
     validate: (parts) => ({
       valid: !!parts[1] && !!parts[2],
@@ -63,7 +72,11 @@ const COMMAND_MAP: Record<string, ICommandConfig> = {
     buildArgs: (parts, userArgs) => {
       const app_type = parts[1]!; // Safe after validation
       const feature_type = parts[2]!; // Safe after validation
-      return [...userArgs, app_type, feature_type, 'down'];
+      // userArgs = [project_path, ...names]
+      // Need: [project_path, app_type, feature_type, ...names, 'down']
+      const project_path = userArgs[0]!;
+      const names = userArgs.slice(1);
+      return [project_path, app_type, feature_type, ...names, 'down'];
     },
     validate: (parts) => ({
       valid: !!parts[1] && !!parts[2],

@@ -5,6 +5,8 @@
   "main": "index.js",
   "scripts": {
     "build": "tsc",
+    "postbuild": "cp -r templates dist/templates",
+    "prebuild": "rm -rf dist",
     "init:spa": "tsx ./cli/cli.ts",
     "uninit:spa": "tsx ./cli/cli.ts",
     "generate:spa:feature": "tsx ./cli/cli.ts",
