@@ -6,13 +6,8 @@ const __dirname = dirname(fileURLToPath(import.meta.url));
 
 const args = process.argv.slice(2);
 
-console.log({ args });
-
-// Check if 'down' exists anywhere in args
 const is_down = args.includes('down');
 const remaining_args = args.filter((arg) => arg !== 'down' && arg !== '--');
-
-console.log({ remaining_args });
 
 const [app_type, ...project_name] = remaining_args;
 

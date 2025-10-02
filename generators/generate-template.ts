@@ -1,4 +1,4 @@
-import { join, dirname } from 'node:path';
+import { join, dirname, sep } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { readFile, writeFile } from 'node:fs/promises';
 
@@ -19,7 +19,9 @@ export async function generate_template({
   output_path,
   replacements = {},
 }: IGenerateTemplateArgs) {
-  const template_path = join(templates_base_path, app_type, `${template_name}.template`);
+  // Use forward slashes in template_name (e.g., 'page/page.tsx')
+  const template_file = template_name.replace(/\//g, sep);
+  const template_path = join(templates_base_path, app_type, `${template_file}.template`);
   const template = await readFile(template_path, 'utf-8');
 
   let content = template;

@@ -6,10 +6,8 @@ export const MainLayout = () => {
     <div className={styles.container}>
       <header className={styles.header}>
         <h1>{{PROJECT_NAME}}</h1>
-        <nav>
-          <ul>
-            <NavLink to="/">Home</ NavLink>
-          </ul>
+        <nav className={styles.nav_links}>
+          <NavLink to="/">Home</ NavLink>
         </nav>
       </header>
       <Outlet />

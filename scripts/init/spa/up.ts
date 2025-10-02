@@ -1,4 +1,5 @@
 import { join } from 'node:path';
+import { mkdir } from 'node:fs/promises';
 import { run_terminal_commands } from './utils/run-terminal-commands.util.js';
 import { build_copy_template_command } from './utils/build-copy-template-command.util.js';
 import { generate_template } from '../../../generators/generate-template.js';
@@ -62,7 +63,6 @@ async function init(raw_project_name?: string[]) {
     ['index.css', ''],
     ['main-layout.module.css', 'layouts'],
     ['index.tsx', 'routes'],
-    ['welcome.tsx', 'pages'],
   ];
 
   const commands = templates.map(([file_name, destination]) =>
@@ -75,7 +75,7 @@ async function init(raw_project_name?: string[]) {
 
   await run_terminal_commands({
     commands: commands,
-    action_name: 'replace root main.tsx',
+    action_name: 'copy base templates',
     cwd: join(project_root_path, 'src'),
   });
 
@@ -84,6 +84,62 @@ async function init(raw_project_name?: string[]) {
     template_name: 'main-layout.tsx',
     output_path: join(project_root_path, 'src', 'layouts', 'main-layout.tsx'),
     replacements: { PROJECT_NAME: project_name },
+  });
+
+  // Generate home page (index)
+  const home_page_dir = join(project_root_path, 'src', 'pages', 'home');
+  await mkdir(home_page_dir, { recursive: true });
+
+  await generate_template({
+    app_type: APP_TYPE,
+    template_name: 'page/page.tsx',
+    output_path: join(home_page_dir, 'home.page.tsx'),
+    replacements: {
+      FEATURE_NAME: 'Home',
+      KEBAB_CASE_NAME: 'home',
+    },
+  });
+
+  await generate_template({
+    app_type: APP_TYPE,
+    template_name: 'page/page.module.css',
+    output_path: join(home_page_dir, 'home.module.css'),
+    replacements: {},
+  });
+
+  // Generate welcome page using same flow as feature generation
+  const welcome_page_dir = join(project_root_path, 'src', 'pages', 'welcome');
+  await mkdir(welcome_page_dir, { recursive: true });
+
+  await generate_template({
+    app_type: APP_TYPE,
+    template_name: 'page/page.tsx',
+    output_path: join(welcome_page_dir, 'welcome.page.tsx'),
+    replacements: {
+      FEATURE_NAME: 'Welcome',
+      KEBAB_CASE_NAME: 'welcome',
+    },
+  });
+
+  await generate_template({
+    app_type: APP_TYPE,
+    template_name: 'page/page.module.css',
+    output_path: join(welcome_page_dir, 'welcome.module.css'),
+    replacements: {},
+  });
+
+  // Add NavLink for Welcome page to MainLayout
+  const main_layout_file = join(project_root_path, 'src', 'layouts', 'main-layout.tsx');
+  const { replace_file_contents } = await import('./utils/replace-file-content.js');
+
+  await replace_file_contents({
+    file_path: main_layout_file,
+    replacements: [
+      {
+        search: /(<NavLink to="\/.*?<\/ NavLink>)/,
+        replace: `$1\n            <NavLink to="/welcome">Welcome</ NavLink>`,
+      },
+    ],
   });
 
   await run_terminal_commands({

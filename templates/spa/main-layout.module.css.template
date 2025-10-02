@@ -16,3 +16,8 @@
 .header > h1::first-letter {
   text-transform: uppercase;
 }
+
+.nav_links {
+  display: flex;
+  gap: 1em;
+}

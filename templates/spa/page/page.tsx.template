@@ -1,0 +1,10 @@
+import styles from './{{KEBAB_CASE_NAME}}.module.css';
+
+export function {{FEATURE_NAME}}Page() {
+  return (
+    <div className={styles.container}>
+      <h1>{{FEATURE_NAME}}</h1>
+      <p>Welcome to the {{FEATURE_NAME}} page!</p>
+    </div>
+  );
+}
