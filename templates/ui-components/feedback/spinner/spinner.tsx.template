@@ -1,0 +1,48 @@
+import { forwardRef } from 'react';
+import styles from './spinner.module.css';
+import type { SpinnerProps } from './spinner.types';
+
+export const Spinner = forwardRef<HTMLDivElement, SpinnerProps>(
+  (
+    {
+      size = 'md',
+      variant = 'primary',
+      label = 'Loading',
+      className = '',
+      ...rest
+    },
+    ref
+  ) => {
+    const classNames = [styles.spinner, styles[size], styles[variant], className]
+      .filter(Boolean)
+      .join(' ');
+
+    return (
+      <div
+        ref={ref}
+        className={classNames}
+        role="status"
+        aria-label={label}
+        {...rest}
+      >
+        <svg
+          className={styles.svg}
+          viewBox="0 0 50 50"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <circle
+            className={styles.circle}
+            cx="25"
+            cy="25"
+            r="20"
+            fill="none"
+            strokeWidth="5"
+          />
+        </svg>
+        <span className={styles.srOnly}>{label}</span>
+      </div>
+    );
+  }
+);
+
+Spinner.displayName = 'Spinner';

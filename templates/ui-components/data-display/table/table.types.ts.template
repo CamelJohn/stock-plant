@@ -1,0 +1,34 @@
+import { type ReactNode, type HTMLAttributes, type ThHTMLAttributes, type TdHTMLAttributes } from 'react';
+
+export type TableVariant = 'default' | 'striped' | 'bordered';
+export type TableSize = 'sm' | 'md' | 'lg';
+
+export interface TableProps extends HTMLAttributes<HTMLTableElement> {
+  variant?: TableVariant;
+  size?: TableSize;
+  children: ReactNode;
+}
+
+export interface TableHeaderProps extends HTMLAttributes<HTMLTableSectionElement> {
+  children: ReactNode;
+}
+
+export interface TableBodyProps extends HTMLAttributes<HTMLTableSectionElement> {
+  children: ReactNode;
+}
+
+export interface TableFooterProps extends HTMLAttributes<HTMLTableSectionElement> {
+  children: ReactNode;
+}
+
+export interface TableRowProps extends HTMLAttributes<HTMLTableRowElement> {
+  children: ReactNode;
+}
+
+export interface TableHeadProps extends ThHTMLAttributes<HTMLTableCellElement> {
+  children: ReactNode;
+}
+
+export interface TableCellProps extends TdHTMLAttributes<HTMLTableCellElement> {
+  children: ReactNode;
+}

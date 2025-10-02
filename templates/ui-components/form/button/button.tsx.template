@@ -1,0 +1,45 @@
+import { forwardRef } from 'react';
+import styles from './button.module.css';
+import type { ButtonProps } from './button.types';
+
+export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
+  (
+    {
+      variant = 'primary',
+      size = 'md',
+      children,
+      isLoading = false,
+      disabled = false,
+      className = '',
+      ...rest
+    },
+    ref
+  ) => {
+    const classNames = [
+      styles.button,
+      styles[variant],
+      styles[size],
+      isLoading && styles.loading,
+      className,
+    ]
+      .filter(Boolean)
+      .join(' ');
+
+    return (
+      <button
+        ref={ref}
+        className={classNames}
+        disabled={disabled || isLoading}
+        {...rest}
+      >
+        {isLoading ? (
+          <span className={styles.spinner} aria-label="Loading" />
+        ) : (
+          children
+        )}
+      </button>
+    );
+  }
+);
+
+Button.displayName = 'Button';

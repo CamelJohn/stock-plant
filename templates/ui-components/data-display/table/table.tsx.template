@@ -1,0 +1,113 @@
+import { forwardRef } from 'react';
+import styles from './table.module.css';
+import type {
+  TableProps,
+  TableHeaderProps,
+  TableBodyProps,
+  TableFooterProps,
+  TableRowProps,
+  TableHeadProps,
+  TableCellProps,
+} from './table.types';
+
+export const Table = forwardRef<HTMLTableElement, TableProps>(
+  ({ variant = 'default', size = 'md', children, className = '', ...rest }, ref) => {
+    const classNames = [styles.table, styles[variant], styles[size], className]
+      .filter(Boolean)
+      .join(' ');
+
+    return (
+      <div className={styles.wrapper}>
+        <table ref={ref} className={classNames} {...rest}>
+          {children}
+        </table>
+      </div>
+    );
+  }
+);
+
+Table.displayName = 'Table';
+
+export const TableHeader = forwardRef<HTMLTableSectionElement, TableHeaderProps>(
+  ({ children, className = '', ...rest }, ref) => {
+    const classNames = [styles.thead, className].filter(Boolean).join(' ');
+
+    return (
+      <thead ref={ref} className={classNames} {...rest}>
+        {children}
+      </thead>
+    );
+  }
+);
+
+TableHeader.displayName = 'TableHeader';
+
+export const TableBody = forwardRef<HTMLTableSectionElement, TableBodyProps>(
+  ({ children, className = '', ...rest }, ref) => {
+    const classNames = [styles.tbody, className].filter(Boolean).join(' ');
+
+    return (
+      <tbody ref={ref} className={classNames} {...rest}>
+        {children}
+      </tbody>
+    );
+  }
+);
+
+TableBody.displayName = 'TableBody';
+
+export const TableFooter = forwardRef<HTMLTableSectionElement, TableFooterProps>(
+  ({ children, className = '', ...rest }, ref) => {
+    const classNames = [styles.tfoot, className].filter(Boolean).join(' ');
+
+    return (
+      <tfoot ref={ref} className={classNames} {...rest}>
+        {children}
+      </tfoot>
+    );
+  }
+);
+
+TableFooter.displayName = 'TableFooter';
+
+export const TableRow = forwardRef<HTMLTableRowElement, TableRowProps>(
+  ({ children, className = '', ...rest }, ref) => {
+    const classNames = [styles.tr, className].filter(Boolean).join(' ');
+
+    return (
+      <tr ref={ref} className={classNames} {...rest}>
+        {children}
+      </tr>
+    );
+  }
+);
+
+TableRow.displayName = 'TableRow';
+
+export const TableHead = forwardRef<HTMLTableCellElement, TableHeadProps>(
+  ({ children, className = '', ...rest }, ref) => {
+    const classNames = [styles.th, className].filter(Boolean).join(' ');
+
+    return (
+      <th ref={ref} className={classNames} {...rest}>
+        {children}
+      </th>
+    );
+  }
+);
+
+TableHead.displayName = 'TableHead';
+
+export const TableCell = forwardRef<HTMLTableCellElement, TableCellProps>(
+  ({ children, className = '', ...rest }, ref) => {
+    const classNames = [styles.td, className].filter(Boolean).join(' ');
+
+    return (
+      <td ref={ref} className={classNames} {...rest}>
+        {children}
+      </td>
+    );
+  }
+);
+
+TableCell.displayName = 'TableCell';

@@ -1,0 +1,60 @@
+import { useState, useRef, useId } from 'react';
+import styles from './tooltip.module.css';
+import type { TooltipProps } from './tooltip.types';
+
+export function Tooltip({
+  content,
+  position = 'top',
+  delay = 200,
+  children,
+  className = '',
+}: TooltipProps) {
+  const [isVisible, setIsVisible] = useState(false);
+  const timeoutRef = useRef<NodeJS.Timeout>();
+  const tooltipId = useId();
+
+  const handleMouseEnter = () => {
+    timeoutRef.current = setTimeout(() => {
+      setIsVisible(true);
+    }, delay);
+  };
+
+  const handleMouseLeave = () => {
+    if (timeoutRef.current) {
+      clearTimeout(timeoutRef.current);
+    }
+    setIsVisible(false);
+  };
+
+  const handleFocus = () => {
+    setIsVisible(true);
+  };
+
+  const handleBlur = () => {
+    setIsVisible(false);
+  };
+
+  return (
+    <div
+      className={`${styles.container} ${className}`}
+      onMouseEnter={handleMouseEnter}
+      onMouseLeave={handleMouseLeave}
+      onFocus={handleFocus}
+      onBlur={handleBlur}
+    >
+      <div aria-describedby={isVisible ? tooltipId : undefined}>
+        {children}
+      </div>
+      {isVisible && (
+        <div
+          id={tooltipId}
+          className={`${styles.tooltip} ${styles[position]}`}
+          role="tooltip"
+        >
+          {content}
+          <div className={`${styles.arrow} ${styles[`arrow-${position}`]}`} />
+        </div>
+      )}
+    </div>
+  );
+}

@@ -1,0 +1,27 @@
+import { type ReactNode } from 'react';
+
+export type ModalSize = 'sm' | 'md' | 'lg' | 'xl' | 'full';
+
+export interface ModalProps {
+  isOpen: boolean;
+  onClose: () => void;
+  children: ReactNode;
+  size?: ModalSize;
+  closeOnBackdropClick?: boolean;
+  closeOnEscape?: boolean;
+  showCloseButton?: boolean;
+}
+
+export interface ModalHeaderProps {
+  children: ReactNode;
+  onClose?: () => void;
+  showCloseButton?: boolean;
+}
+
+export interface ModalBodyProps {
+  children: ReactNode;
+}
+
+export interface ModalFooterProps {
+  children: ReactNode;
+}

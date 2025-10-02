@@ -1,0 +1,66 @@
+import { forwardRef } from 'react';
+import styles from './card.module.css';
+import type {
+  CardProps,
+  CardHeaderProps,
+  CardBodyProps,
+  CardFooterProps,
+} from './card.types';
+
+export const Card = forwardRef<HTMLDivElement, CardProps>(
+  ({ variant = 'default', children, className = '', ...rest }, ref) => {
+    const classNames = [styles.card, styles[variant], className]
+      .filter(Boolean)
+      .join(' ');
+
+    return (
+      <div ref={ref} className={classNames} {...rest}>
+        {children}
+      </div>
+    );
+  }
+);
+
+Card.displayName = 'Card';
+
+export const CardHeader = forwardRef<HTMLDivElement, CardHeaderProps>(
+  ({ children, className = '', ...rest }, ref) => {
+    const classNames = [styles.header, className].filter(Boolean).join(' ');
+
+    return (
+      <div ref={ref} className={classNames} {...rest}>
+        {children}
+      </div>
+    );
+  }
+);
+
+CardHeader.displayName = 'CardHeader';
+
+export const CardBody = forwardRef<HTMLDivElement, CardBodyProps>(
+  ({ children, className = '', ...rest }, ref) => {
+    const classNames = [styles.body, className].filter(Boolean).join(' ');
+
+    return (
+      <div ref={ref} className={classNames} {...rest}>
+        {children}
+      </div>
+    );
+  }
+);
+
+CardBody.displayName = 'CardBody';
+
+export const CardFooter = forwardRef<HTMLDivElement, CardFooterProps>(
+  ({ children, className = '', ...rest }, ref) => {
+    const classNames = [styles.footer, className].filter(Boolean).join(' ');
+
+    return (
+      <div ref={ref} className={classNames} {...rest}>
+        {children}
+      </div>
+    );
+  }
+);
+
+CardFooter.displayName = 'CardFooter';
