@@ -5,8 +5,7 @@
   "main": "index.js",
   "scripts": {
     "build": "tsc",
-    "init": "tsx ./scripts/init/up.ts",
-    "init:down": "tsx ./scripts/init/down.ts"
+    "init": "tsx ./scripts/init/index.ts"
   },
   "keywords": [],
   "author": "",

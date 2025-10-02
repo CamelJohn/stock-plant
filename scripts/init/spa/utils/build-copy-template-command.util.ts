@@ -3,11 +3,10 @@ import { fileURLToPath } from 'node:url';
 
 const meta_url = fileURLToPath(import.meta.url);
 const template_dir_name = dirname(meta_url);
-const templates_directory_path = ['..', '..', '..', 'templates'];
-
-const templates_path = join(template_dir_name, ...templates_directory_path);
+const templates_base_path = join(template_dir_name, '..', '..', '..', '..', 'templates');
 
 export interface IBuildCopyTemplateCommandArgs {
+  app_type: string;
   file_name: string[];
   destination?: string[];
 }
@@ -21,10 +20,11 @@ function handle_destination(file_name: string[], destination?: string[]) {
 }
 
 export function build_copy_template_command({
+  app_type,
   file_name,
   destination,
 }: IBuildCopyTemplateCommandArgs) {
-  const source_path = `${join(templates_path, ...file_name)}.template`;
+  const source_path = `${join(templates_base_path, app_type, ...file_name)}.template`;
   const destination_path = handle_destination(file_name, destination);
 
   return `cp -r "${source_path}" "${destination_path}"`;
