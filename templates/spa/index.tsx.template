@@ -2,7 +2,11 @@ import { createBrowserRouter, type RouteObject } from 'react-router';
 import { MainLayout } from '../layouts/main-layout';
 import { HomePage } from '../pages/home/home.page';
 import { WelcomePage } from '../pages/welcome/welcome.page';
+import { DashboardPage } from '../pages/dashboard/dashboard.page';
+import { LoginPage } from '../pages/login/login.page';
+import { SignupPage } from '../pages/signup/signup.page';
 import { NotFoundPage } from '../pages/not-found/not-found.page';
+import { ProtectedRoute } from '../features/auth/components/protected-route';
 
 const routes: RouteObject[] = [{
     path: '',
@@ -13,6 +17,19 @@ const routes: RouteObject[] = [{
     }, {
         path: 'welcome',
         Component: WelcomePage
+    }, {
+        path: 'dashboard',
+        element: (
+            <ProtectedRoute>
+                <DashboardPage />
+            </ProtectedRoute>
+        )
+    }, {
+        path: 'login',
+        Component: LoginPage
+    }, {
+        path: 'signup',
+        Component: SignupPage
     }, {
         path: '*',
         Component: NotFoundPage

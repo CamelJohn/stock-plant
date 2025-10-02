@@ -5,14 +5,17 @@ A CLI tool for scaffolding and generating code for web projects. Creates opinion
 ## Quick Start
 
 ```bash
-# Create a new SPA project
+# Create a new SPA project (with auth included)
 npm run init:spa my-app
 
-# Generate features
-npm run generate:spa:feature ./my-app dashboard,settings,profile
+# Test credentials: demo@example.com / password
+# Navigate to /dashboard to see protected route in action
+
+# Generate additional features
+npm run generate:spa:feature ./my-app settings,profile
 
 # Remove features
-npm run ungenerate:spa:feature ./my-app dashboard
+npm run ungenerate:spa:feature ./my-app settings
 
 # Remove a project
 npm run uninit:spa my-app
@@ -27,11 +30,21 @@ npm run init:spa <project_name>
 npm run uninit:spa <project_name>
 ```
 
-Creates a complete project with folder structure, routing, and base pages.
+Creates a complete project with folder structure, routing, auth, and base pages.
+
+**What you get:**
+- React + Vite + React Router setup
+- **Authentication system** (login/signup pages with mock API)
+- **Protected routes** (`/dashboard` requires auth)
+- **Public routes** (`/` and `/welcome` are public)
+- 404 error page
+- Main layout with navigation
+
+**Test credentials:** demo@example.com / password
 
 **Available commands:**
 
-- `init:spa` - Create SPA (React + Vite + React Router)
+- `init:spa` - Create SPA with auth included
 - `uninit:spa` - Delete SPA project
 - `init:ssr` - Coming soon
 - `init:backend` - Coming soon
@@ -69,6 +82,8 @@ npm run ungenerate:spa:feature ./my-app users,products
 
 Build complete, interconnected features that span multiple layers (context + components + pages + API).
 
+**Note:** `init:spa` now includes auth by default (page variant). Use scaffold commands to add auth to existing projects or switch variants.
+
 ```bash
 npm run scaffold:auth <project_path> [variant]
 npm run unscaffold:auth <project_path>
@@ -76,14 +91,14 @@ npm run unscaffold:auth <project_path>
 
 **Auth variants:**
 - `modal` - Content-blocking modal auth (best for internal tools/dashboards)
-- `page` - Traditional login/signup pages with redirects (best for SEO-friendly apps)
+- `page` - Traditional login/signup pages with redirects (best for SEO-friendly apps) **[default in init:spa]**
 - `hybrid` - Both modal and page approaches
 
 **Example:**
 ```bash
-npm run scaffold:auth ./my-app modal
-npm run scaffold:auth ./my-app page
-npm run scaffold:auth ./my-app hybrid
+npm run scaffold:auth ./existing-app modal
+npm run scaffold:auth ./existing-app page
+npm run scaffold:auth ./existing-app hybrid
 ```
 
 **What gets scaffolded:**
@@ -216,12 +231,13 @@ my-app/
 
 ✅ Cross-platform (Windows, macOS, Linux)
 ✅ Type-safe with TypeScript
+✅ **Authentication included by default** with login/signup pages
+✅ **Protected routes** with automatic redirects
 ✅ Automatic routing setup
 ✅ Navigation links generation
 ✅ Module CSS scoping
 ✅ Bulk feature generation
-✅ Complete auth scaffolding (3 variants)
-✅ Protected routes and redirects
+✅ Complete auth scaffolding (3 variants: modal, page, hybrid)
 ✅ 404 error pages
 ✅ Customizable templates
 

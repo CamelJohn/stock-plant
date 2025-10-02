@@ -7,10 +7,7 @@ const [project_path, variant = 'page'] = args;
 
 const VALID_VARIANTS = ['modal', 'page', 'hybrid'];
 
-async function scaffold_auth(
-  project_path: string | undefined,
-  variant: string
-) {
+async function scaffold_auth(project_path: string | undefined, variant: string) {
   if (!project_path) {
     console.error('Error: project_path is required');
     console.error('Usage: npm run scaffold:auth <project_path> [variant]');
@@ -45,12 +42,7 @@ async function scaffold_auth(
   await mkdir(join(src_path, 'api'), { recursive: true });
 
   // Generate shared context files
-  const context_files = [
-    'auth.types.ts',
-    'auth.context.ts',
-    'auth.provider.tsx',
-    'use-auth.ts',
-  ];
+  const context_files = ['auth.types.ts', 'auth.context.ts', 'auth.provider.tsx', 'use-auth.ts'];
 
   for (const file of context_files) {
     await generate_template({
@@ -70,11 +62,7 @@ async function scaffold_auth(
   });
 
   // Generate shared components (forms)
-  const form_files = [
-    'login-form.tsx',
-    'signup-form.tsx',
-    'auth-form.module.css',
-  ];
+  const form_files = ['login-form.tsx', 'signup-form.tsx', 'auth-form.module.css'];
 
   for (const file of form_files) {
     await generate_template({
@@ -120,7 +108,7 @@ async function scaffold_auth(
   let lastImportIndex = -1;
 
   for (let i = 0; i < lines.length; i++) {
-    if (lines[i].startsWith('import ')) {
+    if (lines[i]?.startsWith('import ')) {
       lastImportIndex = i;
     }
   }
@@ -138,21 +126,12 @@ async function scaffold_auth(
       `$1    <AuthProvider>\n      <AuthModal />\n      `
     );
 
-    main_content = main_content.replace(
-      /(  <\/StrictMode>)/,
-      `    </AuthProvider>\n$1`
-    );
+    main_content = main_content.replace(/(  <\/StrictMode>)/, `    </AuthProvider>\n$1`);
   } else {
     // For page variant, just wrap with AuthProvider
-    main_content = main_content.replace(
-      /(<StrictMode>\n)/,
-      `$1    <AuthProvider>\n      `
-    );
+    main_content = main_content.replace(/(<StrictMode>\n)/, `$1    <AuthProvider>\n      `);
 
-    main_content = main_content.replace(
-      /(  <\/StrictMode>)/,
-      `    </AuthProvider>\n$1`
-    );
+    main_content = main_content.replace(/(  <\/StrictMode>)/, `    </AuthProvider>\n$1`);
   }
 
   if (variant === 'page' || variant === 'hybrid') {

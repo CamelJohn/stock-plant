@@ -1,4 +1,4 @@
-import type { User } from '../context/auth.types';
+import type { User } from '../features/auth/context/auth.types';
 
 // TODO: Replace with your actual API endpoint
 const API_URL = '/api/auth';
