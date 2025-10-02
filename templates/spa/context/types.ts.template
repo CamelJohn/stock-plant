@@ -1,0 +1,9 @@
+export interface I{{PASCAL_CASE_NAME}}State {
+  // Add your state properties here
+}
+
+export interface I{{PASCAL_CASE_NAME}}Actions {
+  // Add your action methods here
+}
+
+export type {{PASCAL_CASE_NAME}}ContextValue = I{{PASCAL_CASE_NAME}}State & I{{PASCAL_CASE_NAME}}Actions;

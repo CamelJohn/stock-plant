@@ -48,6 +48,13 @@ Generates a full feature page with:
 - Route entry in `src/routes/index.tsx`
 - Navigation link in MainLayout
 
+### context
+Generates React Context with:
+- Types file with interfaces
+- Context creation
+- Provider component
+- Custom hook with error handling
+
 ## How It Works
 
 1. Validates project path exists

@@ -12,7 +12,7 @@ const remaining_args = args.filter((arg) => arg !== 'down' && arg !== '--');
 const [project_path, app_type, feature_type, ...feature_name] = remaining_args;
 
 const VALID_APP_TYPES = ['spa', 'ssr', 'backend'];
-const VALID_FEATURE_TYPES = ['feature', 'component', 'page'];
+const VALID_FEATURE_TYPES = ['feature', 'context', 'component', 'page'];
 
 if (!project_path) {
   console.error(`Error: Missing project path.`);

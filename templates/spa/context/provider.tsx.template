@@ -1,0 +1,21 @@
+import { type ReactNode } from 'react';
+import { {{PASCAL_CASE_NAME}}Context } from './{{KEBAB_CASE_NAME}}.context';
+import type { {{PASCAL_CASE_NAME}}ContextValue } from './{{KEBAB_CASE_NAME}}.types';
+
+interface {{PASCAL_CASE_NAME}}ProviderProps {
+  children: ReactNode;
+}
+
+export function {{PASCAL_CASE_NAME}}Provider({ children }: {{PASCAL_CASE_NAME}}ProviderProps) {
+  // Add your state and logic here
+
+  const value: {{PASCAL_CASE_NAME}}ContextValue = {
+    // Add your context value here
+  };
+
+  return (
+    <{{PASCAL_CASE_NAME}}Context.Provider value={value}>
+      {children}
+    </{{PASCAL_CASE_NAME}}Context.Provider>
+  );
+}

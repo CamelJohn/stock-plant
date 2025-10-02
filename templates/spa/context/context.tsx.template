@@ -1,0 +1,4 @@
+import { createContext } from 'react';
+import type { {{PASCAL_CASE_NAME}}ContextValue } from './{{KEBAB_CASE_NAME}}.types';
+
+export const {{PASCAL_CASE_NAME}}Context = createContext<{{PASCAL_CASE_NAME}}ContextValue | undefined>(undefined);

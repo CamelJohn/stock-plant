@@ -1,0 +1,12 @@
+import { useContext } from 'react';
+import { {{PASCAL_CASE_NAME}}Context } from './{{KEBAB_CASE_NAME}}.context';
+
+export function use{{PASCAL_CASE_NAME}}() {
+  const context = useContext({{PASCAL_CASE_NAME}}Context);
+
+  if (context === undefined) {
+    throw new Error('use{{PASCAL_CASE_NAME}} must be used within a {{PASCAL_CASE_NAME}}Provider');
+  }
+
+  return context;
+}
